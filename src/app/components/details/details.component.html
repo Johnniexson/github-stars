@@ -7,7 +7,7 @@
       <span class="border py-1 px-2">Stars: {{ repo.stargazers_count | formatNumber }}</span>
       <span class="border py-1 px-2">Issues: {{ repo.open_issues_count | formatNumber }}</span>
       <div class="flex items-center">
-        <span>Created {{ repo.created_at | date }} · by </span>
+        <span>Created {{ repo.created_at | date }} · owner </span>
         <div class="ml-2 h-5 w-5 flex-none rounded-full bg-gray-100">
           <img *ngIf="!!repo.owner.avatar_url" src="{{repo.owner.avatar_url}}" alt="{{ repo.name }}"
             class="h-full w-10 object-cover rounded-full" />
