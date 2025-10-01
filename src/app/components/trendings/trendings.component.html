@@ -1,1 +1,56 @@
-<p>trendings works!</p>
+<div class="container">
+  @if (
+  items().length === 0
+  ) {
+  <div *ngIf="isLoading()" class="flex justify-center items-center h-64">
+    <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-gray-500 mr-2"
+      role="status">
+    </div>
+    <span class="text-gray-500">Loading...</span>
+  </div>
+  <div *ngIf="!isLoading()" class="flex justify-center items-center h-64">
+    <span class="text-gray-500">No repositories found.</span>
+  </div>
+  } @else {
+  <ng-container *ngFor="let repo of items()">
+    <div
+      class="repo-card flex gap-4 p-4 mb-4 bg-white rounded shadow cursor-pointer hover:-translate-y-1 transition-transform"
+      (click)="viewRepoDetails(repo)">
+      <div class="h-28 w-28 flex-none bg-gray-100">
+        <img *ngIf="!!repo.owner.avatar_url" src="{{repo.owner.avatar_url}}" alt="{{ repo.name }}"
+          class="h-full w-28 object-cover rounded" />
+      </div>
+      <div class="flex-auto">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-bold line-clamp-1 max-w-[85%] mb-2">{{ repo.name }}</h2>
+          <div class="flex items-center">
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <lucide-icon [img]="StarIcon" class="h-4 w-4" [ngClass]="{
+                'text-yellow-400': star <= repo.score,
+                'text-gray-400': star > repo.score}" />
+            </ng-container>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-2 line-clamp-2">{{ repo.description }}</p>
+        <div class="flex space-x-4 items-center text-sm text-gray-500">
+          <span class="border py-1 px-2">Stars: {{ repo.stargazers_count | formatNumber }}</span>
+          <span class="border py-1 px-2">Issues: {{ repo.open_issues_count | formatNumber }}</span>
+          <span>{{ formatRepoInfo(repo) }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div *ngIf="hasNextPage()" class="flex justify-center">
+    <button hlmBtn variant="default" (click)="loadMore()">
+      @if (isLoading()) {
+      <div class="spinner-border animate-spin inline-block w-4 h-4 border-4 rounded-full text-gray-500 mr-2"
+        role="status">
+      </div>
+      <span class="text-gray-500">Loading...</span>
+      } @else {
+      <span>Load More</span>
+      }
+    </button>
+  </div>
+  }
+</div>
