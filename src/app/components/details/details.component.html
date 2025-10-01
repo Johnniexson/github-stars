@@ -1,0 +1,31 @@
+<hlm-dialog-header class="p-4 pt-0">
+  <h3 hlmDialogTitle class="text-left">{{repo.name}}</h3>
+</hlm-dialog-header>
+<div class="max-h-[60vh] overflow-auto space-y-4 px-4">
+  <div class="flex items-center justify-between sticky top-0 bg-white pb-2 space-x-4 text-sm text-gray-500">
+    <div class="flex items-center space-x-4">
+      <span class="border py-1 px-2">Stars: {{ repo.stargazers_count | formatNumber }}</span>
+      <span class="border py-1 px-2">Issues: {{ repo.open_issues_count | formatNumber }}</span>
+      <div class="flex items-center">
+        <span>Created {{ repo.created_at | date }} · by </span>
+        <div class="ml-2 h-5 w-5 flex-none rounded-full bg-gray-100">
+          <img *ngIf="!!repo.owner.avatar_url" src="{{repo.owner.avatar_url}}" alt="{{ repo.name }}"
+            class="h-full w-10 object-cover rounded-full" />
+        </div>
+        <span class="ml-2">{{ repo.owner.login }}</span>
+      </div>
+    </div>
+    <div class="flex items-center">
+      <span class="mr-2">Rate Now:</span>
+      <div class="flex items-center">
+        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+          <lucide-icon [img]="StarIcon" class="h-4 w-4 hover:cursor-pointer" [ngClass]="{
+        'text-yellow-400': star <= (hoveredStar ?? selectedStar),
+        'text-gray-400': star > (hoveredStar ?? selectedStar)
+      }" (mouseenter)="hoveredStar = star" (mouseleave)="hoveredStar = null" (click)="rateRepo(star)" />
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <p class="text-left bg-gray-50 p-4">{{repo.description || 'No description available'}}</p>
+</div>
