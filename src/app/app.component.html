@@ -5,7 +5,10 @@
       <h4>GitHub Trending Repos</h4>
     </div>
     <div class="flex w-full max-w-sm items-center space-x-2">
-      <input aria-label="Search" class="w-full" hlmInput [(ngModel)]="searchTerm" type="text" placeholder="Search..." />
+      <input aria-label="Search" class="w-full pr-8" hlmInput [(ngModel)]="searchTerm" type="text"
+        placeholder="Search..." />
+      <lucide-icon *ngIf="searchTerm() !== ''" [img]="CloseIcon" size="15" class="-ml-4 hover:cursor-pointer"
+        (click)="clearSearchTerm()"></lucide-icon>
     </div>
   </header>
   <section class="content bg-gray-50 h-[calc(100vh-4rem)] overflow-auto p-4">

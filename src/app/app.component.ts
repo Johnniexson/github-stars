@@ -1,14 +1,15 @@
 import { Component, inject, model, effect } from '@angular/core';
-import { HouseIcon, LucideAngularModule } from 'lucide-angular';
+import { HouseIcon, LucideAngularModule, CircleX } from 'lucide-angular';
 import { TrendingsComponent } from './components/trendings/trendings.component';
 import { HlmInput } from '@spartan-ng/helm/input';
 import { RepoService } from './services/repo.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LucideAngularModule, HlmInput, TrendingsComponent, FormsModule],
+  imports: [LucideAngularModule, HlmInput, TrendingsComponent, FormsModule, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -16,6 +17,7 @@ export class AppComponent {
   private readonly _repoService = inject(RepoService);
   title = 'github-stars';
   readonly HouseIcon = HouseIcon;
+  readonly CloseIcon = CircleX;
 
   searchTerm = model('');
 
@@ -23,5 +25,9 @@ export class AppComponent {
     effect(() => {
       this._repoService.updateSearchTerm(this.searchTerm());
     });
+  }
+
+  clearSearchTerm() {
+    this.searchTerm.set('');
   }
 }
