@@ -40,17 +40,14 @@
       </div>
     </div>
   </ng-container>
-  <div *ngIf="hasNextPage()" class="flex justify-center">
-    <button hlmBtn variant="default" (click)="loadMore()">
-      @if (isLoading()) {
+  }
+  <!-- sentinel -->
+  <div #anchor>
+    <div *ngIf="items().length > 0 && hasNextPage() && isLoading()" class="flex justify-center items-center my-4">
       <div class="spinner-border animate-spin inline-block w-4 h-4 border-4 rounded-full text-gray-500 mr-2"
         role="status">
       </div>
-      <span class="text-gray-500">Loading...</span>
-      } @else {
-      <span>Load More</span>
-      }
-    </button>
+      <span class="text-gray-500">Loading more...</span>
+    </div>
   </div>
-  }
 </div>
