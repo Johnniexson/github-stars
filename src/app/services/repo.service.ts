@@ -12,15 +12,15 @@ export class RepoService {
   searchTerm = signal('');
   currentPage = signal(1);
   totalCount = signal(0);
-  private _allItems = signal<GithubRepository[]>([]);
+  _allItems = signal<GithubRepository[]>([]);
 
   public readonly items = computed(() => {
     const searchTerm = this.searchTerm();
-    const filteredItems = searchTerm !== '' ? (this._allItems().filter((repo) => repo.name.toLowerCase().includes(searchTerm.toLowerCase()))) : this._allItems();
+    const filteredItems = searchTerm !== '' ? ((this._allItems() ?? []).filter((repo) => repo.name.toLowerCase().includes(searchTerm.toLowerCase()))) : this._allItems();
     return filteredItems;
   });
 
-  public readonly totalItems = computed(() => this._allItems().length);
+  public readonly totalItems = computed(() => this._allItems().length ?? 0);
   public readonly totalPages = computed(() => Math.ceil(this.totalCount() / 30));
   public readonly hasNextPage = computed(() => this.currentPage() < this.totalPages());
 
