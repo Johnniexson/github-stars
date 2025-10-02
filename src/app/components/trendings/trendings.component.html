@@ -1,6 +1,6 @@
 <div class="container">
   @if (
-  items().length === 0
+  items() && items().length === 0
   ) {
   <div *ngIf="isLoading()" class="flex justify-center items-center h-64">
     <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-gray-500 mr-2"
@@ -43,7 +43,8 @@
   }
   <!-- sentinel -->
   <div #anchor>
-    <div *ngIf="items().length > 0 && hasNextPage() && isLoading()" class="flex justify-center items-center my-4">
+    <div *ngIf="items() && items().length > 0 && hasNextPage() && isLoading()"
+      class="flex justify-center items-center my-4">
       <div class="spinner-border animate-spin inline-block w-4 h-4 border-4 rounded-full text-gray-500 mr-2"
         role="status">
       </div>

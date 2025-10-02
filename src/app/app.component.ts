@@ -14,8 +14,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  private readonly _repoService = inject(RepoService);
   title = 'github-stars';
+
+  private readonly _repoService = inject(RepoService);
   readonly HouseIcon = HouseIcon;
   readonly CloseIcon = CircleX;
 
